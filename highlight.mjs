@@ -7,13 +7,13 @@ import {html, positions} from "./data.mjs"
  * @returns {string} Using the positions in plainText, find the appropriate positions in htmlContent, highlight the content and return it
  */
 
-function highlightHTMLContent(htmlContent, plainText, plainTextPositions) {
+export function highlightHTMLContent(htmlContent, plainText, plainTextPositions) {
     // your logic goes here
     let output = htmlContent
     let count = 0
     plainTextPositions.map(value => {
         // Extracts the particular substring from the plain text whose position is given in the array.
-        let subStr = plainText.substring(value.start + 1, value.end + 1)
+        let subStr = plainText.substring(value.start, value.end)
         // Made a highlight template to replace the said substring.
         let highlight = `<mark>${subStr}</mark>`
         // Gets the index of all the words in the html content that matches the substring.
@@ -38,10 +38,10 @@ function replaceRange(s, start, end, substitute) {
 }
 
 // This function extracts the plain text from the html content by replacing all the tags with white spaces.
-function extractHTML(htmlContent) {
+export function extractHTML(htmlContent) {
     let res = htmlContent.replace(/<(?:.|\n)*?>/gm, " ");
     res = res.replace(/\s\s+/g, ' ')
-    return res
+    return res.trim()
 }
 
 const plainText = extractHTML(html)
